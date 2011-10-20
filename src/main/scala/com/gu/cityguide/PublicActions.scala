@@ -13,11 +13,63 @@ class PublicActions extends ScalatraFilter {
   protected val log = LoggerFactory.getLogger(getClass)
   implicit val formats = DefaultFormats
 
+  val cities = ModelLoader.loadCities
+  val items = ModelLoader.loadItems
+
   before() { contentType = "application/json" }
 
-  get("/hello/*") {
-    ModelLoader.load
-    pretty(render(decompose(Map("hello"->"world"))))
+  get("/cities") {
+    pretty(render(decompose(cities)))
+  }
+
+  get("/:city") {
+    println(params("city") + " categories request")
+    val city = cities.find(_.urlName == params("city"))
+    city match {
+      case Some(c) => pretty(render(decompose(c.categories)))
+      case None => halt(404)
+    }
+  }
+
+  get("/:city/:cat/subcategories") {
+    val city = cities.find(_.urlName == params("city"))
+    val category = city.flatMap(_.categories.find(_.urlName == params("cat")))
+    category match {
+      case Some(c) => pretty(render(decompose(c.subCategories)))
+      case None => halt(404)
+    }
+  }
+
+  get("/:city/:cat/:subcat") {
+    val city = cities.find(_.urlName == params("city"))
+    val category = city.flatMap(_.categories.find(_.urlName == params("cat")))
+    val subCategory = category.flatMap(_.subCategories.find(_.urlName == params("subcat")))
+
+    (city, category, subCategory) match {
+      case (Some(c), Some(cat), Some(sub)) => {
+        pretty(render(decompose(items
+          .filter(_.city == c.name)
+          .filter(_.category == cat.id)
+          .filter(_.subcategory == sub.name))))
+      }
+      case _ => halt(404)
+    }
+
+  }
+
+  get("/:city/:cat") {
+    val city = cities.find(_.urlName == params("city"))
+    val category = city.flatMap(_.categories.find(_.urlName == params("cat")))
+
+    (city, category) match {
+      case (Some(c), Some(cat)) => {
+        pretty(render(decompose(items
+          .filter(_.city == c.name)
+          .filter(_.category == cat.id))))
+      }
+      case _ => halt(404)
+    }
+
   }
 
   error { case e => {

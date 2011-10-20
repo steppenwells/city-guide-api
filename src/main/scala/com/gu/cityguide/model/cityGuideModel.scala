@@ -12,12 +12,15 @@ case class City(
   whatsOnUrl: Option[String],
   transportUrl: Option[String],
   weatherUrl: Option[String],
+  itemsUrl: String,
   categories: List[Category]
 )
 
 case class Category(
+  id: String,
   name: String,
   urlName: String,
+  itemsUrl: String,
   subCategories: List[SubCategory]
 )
 
@@ -25,7 +28,7 @@ case class SubCategory(
   name: String,
   urlName: String,
   image: String,
-  items: List[Item]
+  itemsUrl: String
 )
 
 case class Item(
