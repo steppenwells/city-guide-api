@@ -14,7 +14,13 @@ object ModelLoader {
 
     val cities = csvData.tail.map( parseCity _ )
 
-    println(cities head)
+    val itemSource = scala.io.Source.fromFile("/home/swells/guardian/city-guide-api/items.csv")
+    val itemCsvText = itemSource mkString ""
+    itemSource close
+    val itemData = CSV.parse(itemCsvText)
+    val items = itemData.tail.map( parseItem )
+
+    println(items head)
 
 
   }
@@ -61,5 +67,48 @@ object ModelLoader {
         SubCategory("", "", "", Nil)
       }
     }.filterNot(_.name == "").toList
+  }
+
+  def parseItem(data: List[String]) = {
+    try{ Item(
+      city = data(0),
+      category = data(1),
+      subcategory = data(2),
+      name = data(3),
+      urlName = data(3).replace(" ", ""),
+      url = noneIfEmpty (data, 4),
+      latitude = noneIfEmpty(data, 5) map (_.toDouble),
+      longitude = noneIfEmpty(data, 6) map (_.toDouble),
+      description = noneIfEmpty(data, 7),
+      image = noneIfEmpty(data, 8),
+      caption = noneIfEmpty(data, 9),
+      byline = noneIfEmpty(data, 10),
+      bylineUrl = noneIfEmpty(data, 11),
+      guardianArticleUrl = noneIfEmpty(data, 12),
+      guardianArticleTitle = noneIfEmpty(data, 13),
+      mapCentreLatitude = noneIfEmpty(data, 14) map (_.toDouble),
+      mapCentreLongitude = noneIfEmpty(data, 15) map (_.toDouble),
+      mapCentreZoom = noneIfEmpty(data, 16) map (_.toInt)
+    )
+    } catch {
+      case e => {
+        println("ERROR parsing line:" )
+        data foreach (println(_))
+      }
+
+    }
+  }
+
+
+  def noneIfEmpty(data: List[String], i: Int) = {
+    if (i >= data.length) {
+      None
+    } else {
+      data(i) match {
+        case null => None
+        case "" => None
+        case s => Some(s)
+      }
+    }
   }
 }

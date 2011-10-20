@@ -29,9 +29,12 @@ case class SubCategory(
 )
 
 case class Item(
+  city: String,
+  category: String,
+  subcategory: String,
   name: String,
   urlName: String,
-  url: Option[String],
+  url:Option[String],
   latitude: Option[Double],
   longitude: Option[Double],
   description: Option[String],
