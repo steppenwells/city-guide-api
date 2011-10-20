@@ -1,6 +1,7 @@
 package com.gu.cityguide
 
 import configuration.{Configuration}
+import model.ModelLoader
 import org.scalatra.ScalatraFilter
 import org.slf4j.{LoggerFactory, Logger}
 import net.liftweb.json._
@@ -15,6 +16,7 @@ class PublicActions extends ScalatraFilter {
   before() { contentType = "application/json" }
 
   get("/hello/*") {
+    ModelLoader.load
     pretty(render(decompose(Map("hello"->"world"))))
   }
 

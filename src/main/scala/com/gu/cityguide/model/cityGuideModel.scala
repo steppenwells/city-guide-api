@@ -24,6 +24,7 @@ case class Category(
 case class SubCategory(
   name: String,
   urlName: String,
+  image: String,
   items: List[Item]
 )
 
@@ -33,7 +34,7 @@ case class Item(
   url: Option[String],
   latitude: Option[Double],
   longitude: Option[Double],
-  bubble: Option[String],
+  description: Option[String],
   image: Option[String],
   caption: Option[String],
   byline: Option[String],
