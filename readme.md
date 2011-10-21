@@ -18,6 +18,6 @@ Demo microapp
 -------------
 
 * [component] http://gnm41081.int.gnl/www.guprod.gnl/travel/paris
-* [resource] http://localhost:9081/images/new-york/accomodation
+* [resource] http://gnm41081.int.gnl:9081/images/new-york/accomodation
 
 
