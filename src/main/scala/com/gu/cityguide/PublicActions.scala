@@ -22,7 +22,7 @@ class PublicActions extends ScalatraFilter {
     pretty(render(decompose(cities)))
   }
 
-  get("/city/:city") {
+  get("/categories/:city") {
     println(params("city") + " categories request")
     val city = cities.find(_.urlName == params("city"))
     city match {
@@ -31,14 +31,14 @@ class PublicActions extends ScalatraFilter {
     }
   }
 
-  get("/city/:city/:cat/subcategories") {
-    val city = cities.find(_.urlName == params("city"))
-    val category = city.flatMap(_.categories.find(_.urlName == params("cat")))
-    category match {
-      case Some(c) => pretty(render(decompose(c.subCategories)))
-      case None => halt(404)
-    }
-  }
+//  get("/city/:city/:cat/subcategories") {
+//    val city = cities.find(_.urlName == params("city"))
+//    val category = city.flatMap(_.categories.find(_.urlName == params("cat")))
+//    category match {
+//      case Some(c) => pretty(render(decompose(c.subCategories)))
+//      case None => halt(404)
+//    }
+//  }
 
   get("/city/:city/:cat/:subcat") {
     val city = cities.find(_.urlName == params("city"))

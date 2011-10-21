@@ -41,7 +41,7 @@ object ModelLoader {
       whatsOnUrl = Option(data(8)),
       transportUrl = Option(data(9)),
       weatherUrl = Option(data(10)),
-      itemsUrl = "/" + id,
+      itemsUrl = "/categories/" + id,
       categories = parseCategories(data, id)
     )
   }
@@ -49,12 +49,12 @@ object ModelLoader {
   def parseCategories(data: List[String], cityId: String) = {
 
     List(
-      Category("Where to stay", "Where to stay", "accomodation", "/" + cityId + "/accomodation", parseSubCategories(data, 11, 5,  "/" + cityId + "/accomodation")),
-      Category("Eats", "Where to eat", "food", "/" + cityId + "/food", parseSubCategories(data, 21, 5, "/" + cityId + "/food")),
-      Category("Nightlife", "Nightlife", "nightlife", "/" + cityId + "/nightlife", parseSubCategories(data, 31, 5, "/" + cityId + "/nightlife")),
-      Category("Shopping", "Where to shop", "shopping", "/" + cityId + "/shopping", parseSubCategories(data, 41, 5, "/" + cityId + "/shopping")),
-      Category("Arts", "Arts", "arts", "/" + cityId + "/arts", parseSubCategories(data, 51, 5, "/" + cityId + "/arts")),
-      Category("Outdoors", "Outdoors", "outdoors", "/" + cityId + "/outdoors", parseSubCategories(data, 61, 5, "/" + cityId + "/outdoors"))
+      Category("Where to stay", "Where to stay", "accomodation", "/city/" + cityId + "/accomodation", parseSubCategories(data, 11, 5,  "/city/" + cityId + "/accomodation")),
+      Category("Eats", "Where to eat", "food", "/city/" + cityId + "/food", parseSubCategories(data, 21, 5, "/city/" + cityId + "/food")),
+      Category("Nightlife", "Nightlife", "nightlife", "/city/" + cityId + "/nightlife", parseSubCategories(data, 31, 5, "/city/" + cityId + "/nightlife")),
+      Category("Shopping", "Where to shop", "shopping", "/city/" + cityId + "/shopping", parseSubCategories(data, 41, 5, "/city/" + cityId + "/shopping")),
+      Category("Arts", "Arts", "arts", "/city/" + cityId + "/arts", parseSubCategories(data, 51, 5, "/city/" + cityId + "/arts")),
+      Category("Outdoors", "Outdoors", "outdoors", "/city/" + cityId + "/outdoors", parseSubCategories(data, 61, 5, "/city/" + cityId + "/outdoors"))
     )
   }
 
