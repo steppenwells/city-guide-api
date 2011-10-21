@@ -22,7 +22,7 @@ class PublicActions extends ScalatraFilter {
     pretty(render(decompose(cities)))
   }
 
-  get("/:city") {
+  get("/city/:city") {
     println(params("city") + " categories request")
     val city = cities.find(_.urlName == params("city"))
     city match {
@@ -31,7 +31,7 @@ class PublicActions extends ScalatraFilter {
     }
   }
 
-  get("/:city/:cat/subcategories") {
+  get("/city/:city/:cat/subcategories") {
     val city = cities.find(_.urlName == params("city"))
     val category = city.flatMap(_.categories.find(_.urlName == params("cat")))
     category match {
@@ -40,7 +40,7 @@ class PublicActions extends ScalatraFilter {
     }
   }
 
-  get("/:city/:cat/:subcat") {
+  get("/city/:city/:cat/:subcat") {
     val city = cities.find(_.urlName == params("city"))
     val category = city.flatMap(_.categories.find(_.urlName == params("cat")))
     val subCategory = category.flatMap(_.subCategories.find(_.urlName == params("subcat")))
@@ -57,7 +57,7 @@ class PublicActions extends ScalatraFilter {
 
   }
 
-  get("/:city/:cat") {
+  get("/city/:city/:cat") {
     val city = cities.find(_.urlName == params("city"))
     val category = city.flatMap(_.categories.find(_.urlName == params("cat")))
 
