@@ -9,8 +9,8 @@ object ModelLoader {
   implicit val codec = Codec("UTF-8")
 
   def loadCities: List[City] = {
-    //val source = scala.io.Source.fromFile("/home/swells/guardian/city-guide-api/cities.csv")
-    val source = scala.io.Source.fromFile("/Users/steppenwells/projects/city-guide-api/cities.csv")
+    val source = scala.io.Source.fromFile("/home/swells/guardian/city-guide-api/cities.csv")
+    //val source = scala.io.Source.fromFile("/Users/steppenwells/projects/city-guide-api/cities.csv")
     val csvText = source mkString ""
     source close
     val csvData = CSV.parse(csvText)
@@ -19,8 +19,8 @@ object ModelLoader {
   }
 
   def loadItems: List[Item] = {
-    //val itemSource = scala.io.Source.fromFile("/home/swells/guardian/city-guide-api/items.csv")
-    val itemSource = scala.io.Source.fromFile("/Users/steppenwells/projects/city-guide-api/items.csv")
+    val itemSource = scala.io.Source.fromFile("/home/swells/guardian/city-guide-api/items.csv")
+    //val itemSource = scala.io.Source.fromFile("/Users/steppenwells/projects/city-guide-api/items.csv")
     val itemCsvText = itemSource mkString ""
     itemSource close
     val itemData = CSV.parse(itemCsvText)

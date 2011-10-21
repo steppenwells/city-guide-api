@@ -28,3 +28,6 @@ libraryDependencies ++= Seq(
 // and use this version of jetty for jetty run
 libraryDependencies += "org.eclipse.jetty" % "jetty-webapp" % "7.3.1.v20110307" % "container"
 
+
+port in container.Configuration := 9080
+
